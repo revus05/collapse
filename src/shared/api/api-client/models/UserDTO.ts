@@ -12,17 +12,33 @@ export type UserDTO = {
      */
     image: string;
     /**
-     * Username
+     * FirstName
      */
-    username: string;
+    firstName: string;
+    /**
+     * LastName
+     */
+    lastName: string;
+    /**
+     * MiddleName
+     */
+    middleName: string;
     /**
      * Email address
      */
     email: string;
     /**
-     * User's telegram id
+     * Phone number
      */
-    telegramId: number;
+    phone: string;
+    /**
+     * Preferred currency
+     */
+    currency: 'BYN' | 'RUB';
+    /**
+     * User role
+     */
+    role: 'USER' | 'ADMIN';
     /**
      * Creation timestamp
      */

@@ -19,8 +19,13 @@ const userSlice = createSlice({
     signOut: (state) => {
       state.user = null;
     },
+    updateUserCurrency: (state, action: PayloadAction<"BYN" | "RUB">) => {
+      if (state.user) {
+        state.user.currency = action.payload;
+      }
+    },
   },
 });
 
-export const { signIn, signOut } = userSlice.actions;
+export const { signIn, signOut, updateUserCurrency } = userSlice.actions;
 export default userSlice.reducer;

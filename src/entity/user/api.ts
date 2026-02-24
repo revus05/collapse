@@ -3,6 +3,7 @@ import {
   type ApiResponse,
   baseQuery,
   type SignInUserRequestDTO,
+  type UpdateCurrencyRequestDTO,
   type UserDTO,
 } from "shared/api";
 
@@ -30,6 +31,16 @@ const userApi = createApi({
         method: "POST",
       }),
     }),
+    updateCurrency: builder.mutation<
+      ApiResponse<UserDTO>,
+      UpdateCurrencyRequestDTO
+    >({
+      query: (body) => ({
+        url: "/update-currency",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -38,4 +49,5 @@ export const {
   useSignInUserMutation,
   useSignUpUserMutation,
   useSignOutUserMutation,
+  useUpdateCurrencyMutation,
 } = userApi;

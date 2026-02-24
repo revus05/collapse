@@ -5,4 +5,7 @@ export const paths = {
   new: "/new",
   signIn: "/sign-in",
   signUp: "/sign-up",
+  profile: "/profile",
+
+  adminProducts: "/admin/products",
 };

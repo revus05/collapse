@@ -1,2 +1,8 @@
-export type { Product } from "./api";
-export { getProducts } from "./api";
+export {
+  default as productApi,
+  useCreateProductMutation,
+  useDeleteProductMutation,
+  useGetAllProductsQuery,
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "./api";

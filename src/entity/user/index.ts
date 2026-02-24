@@ -3,6 +3,7 @@ export {
   useSignInUserMutation,
   useSignOutUserMutation,
   useSignUpUserMutation,
+  useUpdateCurrencyMutation,
 } from "./api";
 export type { PreloadedState } from "./lib";
 export { preloadState } from "./lib";

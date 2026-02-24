@@ -12,14 +12,25 @@ const getDefaultState = (user: UserDTO | null = null): PreloadedState => ({
 });
 
 export async function preloadState(): Promise<PreloadedState> {
+  const user = await getMeOnServer();
+
+  if (!user) {
+    return getDefaultState();
+  }
+
+  return getDefaultState(user);
+}
+
+export const getMeOnServer = async (): Promise<UserDTO | null> => {
   const cookieStore = await cookies();
   const jwt = cookieStore.get("jwt")?.value;
 
   if (!jwt) {
-    return getDefaultState();
+    return null;
   }
 
-  let meRes: null | Response = null;
+  let meRes: Response | null = null;
+
   try {
     meRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
       method: "GET",
@@ -28,28 +39,17 @@ export async function preloadState(): Promise<PreloadedState> {
         Cookie: `jwt=${jwt}`,
       },
     });
-  } catch (err) {
-    console.error("Failed to fetch /users/me", err);
-    return getDefaultState();
-  }
 
-  if (!meRes.ok) {
-    console.warn("me endpoint not ok", meRes.status);
-    return getDefaultState();
-  }
-
-  let user: UserDTO | undefined;
-  try {
     const meData: ApiResponse<UserDTO> = await meRes.json();
-    user = meData.data;
+    const user = meData.data;
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
   } catch (err) {
     console.error("Failed to parse user", err);
-    return getDefaultState();
+    return null;
   }
-
-  if (!user) {
-    return getDefaultState();
-  }
-
-  return getDefaultState(user);
-}
+};
