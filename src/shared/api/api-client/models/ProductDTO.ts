@@ -24,6 +24,10 @@ export type ProductDTO = {
      */
     outsideColors: Array<'RED' | 'GRAPHITE' | 'GREEN' | 'VIOLET' | 'ORANGE' | 'DARK_RED' | 'BLACK' | 'CYAN' | 'PINK' | 'WHITE' | 'LIME' | 'YELLOW'>;
     /**
+     * Product tags
+     */
+    tags: Array<'BAGS' | 'SALES' | 'NEW' | 'LIMIT' | 'CLOTHES' | 'ACCESSORIES'>;
+    /**
      * Price in BYN
      */
     priceBYN: number;

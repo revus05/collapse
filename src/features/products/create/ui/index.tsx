@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Controller } from "react-hook-form";
-import { colors } from "shared/constants";
+import { colors, tags } from "shared/constants";
 import { Button } from "shared/ui/button";
 import {
   Dialog,
@@ -51,7 +51,7 @@ export const CreateProductForm = ({
         <DialogTrigger asChild>
           <Button variant="outline">Добавить товар</Button>
         </DialogTrigger>
-        <DialogContent className="!max-w-fit">
+        <DialogContent className="max-w-fit!">
           <DialogHeader>
             <DialogTitle>Новый товар</DialogTitle>
             <DialogDescription>
@@ -60,7 +60,7 @@ export const CreateProductForm = ({
           </DialogHeader>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-128 flex flex-col gap-4"
+            className="w-lg flex flex-col gap-4"
           >
             <Field>
               <FieldLabel>Название</FieldLabel>
@@ -110,6 +110,26 @@ export const CreateProductForm = ({
                 )}
               />
               <FieldError>{errors.insideColors?.message}</FieldError>
+            </Field>
+
+            <Field>
+              <FieldLabel>Теги</FieldLabel>
+              <Controller
+                control={control}
+                name="tags"
+                render={({ field }) => (
+                  <MultiSelect
+                    values={Object.entries(tags).map(([value, label]) => ({
+                      label,
+                      value,
+                    }))}
+                    selected={field.value}
+                    onValuesChangeAction={field.onChange}
+                    aria-invalid={!!errors.tags?.message}
+                  />
+                )}
+              />
+              <FieldError>{errors.tags?.message}</FieldError>
             </Field>
 
             <div className="flex gap-4">

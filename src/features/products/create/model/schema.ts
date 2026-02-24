@@ -1,4 +1,4 @@
-import { colorValues } from "shared/constants";
+import { colorValues, tagsValues } from "shared/constants";
 import z from "zod";
 
 const priceSchema = z
@@ -23,6 +23,8 @@ export const productSchema = z.object({
   outsideColors: z
     .array(z.enum(colorValues))
     .min(1, "Выберите хотя бы один цвет"),
+
+  tags: z.array(z.enum(tagsValues)).min(1, "Выберите хотя бы один тег"),
 
   priceBYN: priceSchema.nonempty("Цена необходима"),
   priceRUB: priceSchema.nonempty("Цена необходима"),

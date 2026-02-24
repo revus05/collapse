@@ -4,6 +4,7 @@ import {
   useCreateProductMutation,
   useUpdateProductMutation,
 } from "entity/product";
+import type { ProductRequestDTO } from "shared/api";
 import type { ProductFormData } from "./schema";
 
 export const useCreateProductSubmit = (productUuid?: string) => {
@@ -14,14 +15,21 @@ export const useCreateProductSubmit = (productUuid?: string) => {
     isLoading: createState.isLoading || updateState.isLoading,
 
     onSubmit: async (data: ProductFormData) => {
+      const body: ProductRequestDTO = {
+        ...data,
+        priceRUB: +data.priceRUB,
+        priceBYN: +data.priceBYN,
+        discountPriceBYN: +data.discountPriceBYN,
+        discountPriceRUB: +data.discountPriceRUB,
+      };
       try {
         if (productUuid) {
           await updateProduct({
             uuid: productUuid,
-            body: data,
+            body,
           }).unwrap();
         } else {
-          await createProduct(data).unwrap();
+          await createProduct(body).unwrap();
         }
       } catch (e) {
         console.error("Ошибка сохранения продукта", e);

@@ -36,6 +36,7 @@ export const ProductList = () => {
     {
       accessorKey: "images",
       header: "Картинки",
+      size: 100,
       cell: ({ row }) => {
         const images = row.original.images;
         const title = row.original.title;
@@ -57,14 +58,22 @@ export const ProductList = () => {
     {
       accessorKey: "description",
       header: "Описание",
+      size: 420,
+      cell: ({ row }) => (
+        <p className="line-clamp-5 whitespace-break-spaces wrap-break-word">
+          {row.original.description || "—"}
+        </p>
+      ),
     },
     {
       accessorKey: "priceBYN",
       header: "Цена BYN",
+      size: 100,
     },
     {
       accessorKey: "discountPriceBYN",
       header: "Скидка BYN",
+      size: 100,
       cell: ({ row }) => <span>{row.original.discountPriceBYN || "—"}</span>,
     },
     {
@@ -75,11 +84,13 @@ export const ProductList = () => {
     {
       accessorKey: "discountPriceRUB",
       header: "Скидка RUB",
+      size: 100,
       cell: ({ row }) => <span>{row.original.discountPriceRUB || "—"}</span>,
     },
     {
       accessorKey: "delete",
       header: "",
+      size: 56,
       cell: ({ row }) => (
         <Button onClick={(e) => handleProductDelete(e, row.original.uuid)}>
           <Trash />
@@ -107,12 +118,12 @@ export const ProductList = () => {
 
   return (
     <div className="border">
-      <Table>
+      <Table className="table-fixed">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead key={header.id} style={{ width: header.getSize() }}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -134,8 +145,14 @@ export const ProductList = () => {
                 className="cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  <TableCell
+                    key={cell.id}
+                    style={{ width: cell.column.getSize() }}
+                  >
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext(),
+                    ) || "—"}
                   </TableCell>
                 ))}
               </TableRow>

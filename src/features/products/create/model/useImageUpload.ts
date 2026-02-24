@@ -11,17 +11,24 @@ export const useImageUpload = (
   const [uploadImage, { isLoading }] = useUploadFileMutation();
 
   const upload = async (files: FileList | null) => {
-    if (!files) return;
+    if (!files || files.length === 0) return;
 
-    for (const file of Array.from(files)) {
-      const formData = new FormData();
-      formData.append("file", file);
+    try {
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
 
-      const res = await uploadImage(formData).unwrap();
+        const response = await uploadImage(formData).unwrap();
+        return response.data.filepath;
+      });
 
-      setValue("images", [...getValues("images"), res.data.filepath], {
+      const newImagePaths = await Promise.all(uploadPromises);
+
+      setValue("images", [...getValues("images"), ...newImagePaths], {
         shouldValidate: true,
       });
+    } catch (error) {
+      console.error("Ошибка при загрузке изображений:", error);
     }
   };
 

@@ -13,6 +13,7 @@ export const useCreateProductForm = () =>
       description: "",
       insideColors: [],
       outsideColors: [],
+      tags: [],
       priceBYN: "",
       priceRUB: "",
       discountPriceBYN: "",

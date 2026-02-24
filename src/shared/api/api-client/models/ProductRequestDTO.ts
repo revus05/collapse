@@ -19,6 +19,7 @@ export type ProductRequestDTO = {
      * Цвет снаружи
      */
     outsideColors: Array<'RED' | 'GRAPHITE' | 'GREEN' | 'VIOLET' | 'ORANGE' | 'DARK_RED' | 'BLACK' | 'CYAN' | 'PINK' | 'WHITE' | 'LIME' | 'YELLOW'>;
+    tags?: Array<'BAGS' | 'SALES' | 'NEW' | 'LIMIT' | 'CLOTHES' | 'ACCESSORIES'>;
     /**
      * Цена BYN
      */
