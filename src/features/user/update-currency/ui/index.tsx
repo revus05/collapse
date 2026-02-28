@@ -11,6 +11,7 @@ import {
 } from "shared/ui/select";
 
 export const UpdateCurrencySelect = () => {
+  const user = useAppSelector((state) => state.userSlice.user);
   const currency = useAppSelector((state) => state.userSlice.user?.currency);
 
   const { onSubmit } = useUpdateCurrencySubmit();
@@ -20,6 +21,8 @@ export const UpdateCurrencySelect = () => {
       void onSubmit({ currency: newValue });
     }
   };
+
+  if (!user) return null;
 
   return (
     <Select value={currency} onValueChange={handleValueChange}>

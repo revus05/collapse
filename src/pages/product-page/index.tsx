@@ -1,18 +1,15 @@
-"use client";
-
-import { useGetProductByIdQuery } from "entity/product";
+import { ProductPage } from "pages/product-page/ui";
 import type { FC } from "react";
+import { withHomeLayout } from "widgets/layouts/home";
 
 type ProductPageProps = {
-  uuid: string;
+  params: Promise<{ uuid: string }>;
 };
 
-export const ProductPage: FC<ProductPageProps> = ({ uuid }) => {
-  const { data: response } = useGetProductByIdQuery(uuid);
+const ProductServerPage: FC<ProductPageProps> = async ({ params }) => {
+  const { uuid } = await params;
 
-  if (!response) return null;
-
-  const { data: product } = response;
-
-  return <span>{product.title}</span>;
+  return <ProductPage uuid={uuid} />;
 };
+
+export default withHomeLayout(ProductServerPage);

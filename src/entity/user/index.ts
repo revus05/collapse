@@ -1,8 +1,10 @@
 export {
   default as userApi,
+  useGetCartQuery,
   useSignInUserMutation,
   useSignOutUserMutation,
   useSignUpUserMutation,
+  useToggleInCartMutation,
   useUpdateCurrencyMutation,
 } from "./api";
 export type { PreloadedState } from "./lib";

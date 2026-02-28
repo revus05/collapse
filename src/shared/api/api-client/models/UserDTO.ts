@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Order } from './Order';
+import type { ProductDTO } from './ProductDTO';
 export type UserDTO = {
     /**
      * User uuid
@@ -39,6 +41,14 @@ export type UserDTO = {
      * User role
      */
     role: 'USER' | 'ADMIN';
+    /**
+     * User orders
+     */
+    orders: Array<Order>;
+    /**
+     * User cart
+     */
+    cart: Array<ProductDTO>;
     /**
      * Creation timestamp
      */

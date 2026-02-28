@@ -7,8 +7,7 @@ import { useAppSelector } from "shared/lib/hooks";
 import { paths } from "shared/navigation/paths";
 
 export const ProductsList = () => {
-  const currency = useAppSelector((state) => state.userSlice.user?.currency);
-
+  const user = useAppSelector((state) => state.userSlice.user);
   const { data: response } = useGetAllProductsQuery();
 
   if (!response) return null;
@@ -29,8 +28,12 @@ export const ProductsList = () => {
           <div className="p-4 space-y-2">
             <h3 className="text-xl font-semibold">{product.title}</h3>
             <p className="text-lg font-bold text-[#a300ff]">
-              {currency === "BYN" ? product.priceBYN : product.priceRUB}{" "}
-              {currency}
+              {!user
+                ? `${product.priceBYN} BYN`
+                : user.currency === "BYN"
+                  ? product.priceBYN
+                  : product.priceRUB}{" "}
+              {user?.currency}
             </p>
           </div>
         </Link>
