@@ -1,27 +1,31 @@
 "use client";
 
-import { useGetProductByIdQuery } from "entity/product";
 import { useToggleInCartMutation } from "entity/user";
 import Image from "next/image";
 import { type FC, useState } from "react";
+import type { ProductDTO } from "shared/api";
+import { type Colors, colorsHex } from "shared/constants/colors";
+import { cn } from "shared/lib/cn";
 import { useAppSelector } from "shared/lib/hooks";
 import { Button } from "shared/ui/button";
 
 type ProductPageProps = {
-  uuid: string;
+  product: ProductDTO;
 };
 
-export const ProductPage: FC<ProductPageProps> = ({ uuid }) => {
-  const { data: response } = useGetProductByIdQuery(uuid);
+export const ProductPage: FC<ProductPageProps> = ({ product }) => {
   const [toggleInCart] = useToggleInCartMutation();
   const currency =
     useAppSelector((state) => state.userSlice.user?.currency) || "BYN";
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedInsideColors, setSelectedInsideColors] = useState<Colors>(
+    product.insideColors[0],
+  );
 
-  if (!response) return null;
-
-  const { data: product } = response;
+  const [selectedOutsideColors, setSelectedOutsideColors] = useState<Colors>(
+    product.outsideColors[0],
+  );
 
   const handleQuantityDecrease = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
@@ -43,19 +47,37 @@ export const ProductPage: FC<ProductPageProps> = ({ uuid }) => {
       <div className="grow flex flex-col gap-4">
         <h1 className="text-4xl font-bold">{product.title}</h1>
         <span className="whitespace-break-spaces">{product.description}</span>
-        <div>
+        <div className="flex flex-col gap-2">
           <h4>Цвет сумки</h4>
           <div className="flex gap-2">
             {product.outsideColors.map((color) => (
-              <div key={color}>{color}</div>
+              <button
+                type="button"
+                key={color}
+                className={cn(
+                  "size-8 rounded-full cursor-pointer",
+                  selectedOutsideColors === color && "border-2 border-accent",
+                )}
+                style={{ background: colorsHex[color] }}
+                onClick={() => setSelectedOutsideColors(color)}
+              />
             ))}
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-2">
           <h4>Цвет подкладки</h4>
           <div className="flex gap-2">
             {product.insideColors.map((color) => (
-              <div key={color}>{color}</div>
+              <button
+                type="button"
+                key={color}
+                className={cn(
+                  "size-8 rounded-full cursor-pointer",
+                  selectedInsideColors === color && "border-2 border-accent",
+                )}
+                style={{ background: colorsHex[color] }}
+                onClick={() => setSelectedInsideColors(color)}
+              />
             ))}
           </div>
         </div>
@@ -83,7 +105,7 @@ export const ProductPage: FC<ProductPageProps> = ({ uuid }) => {
         <Button
           className="w-fit"
           variant="glowing"
-          onClick={() => toggleInCart(uuid)}
+          onClick={() => toggleInCart(product.uuid)}
         >
           Заказать
         </Button>
