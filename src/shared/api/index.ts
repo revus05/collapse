@@ -6,6 +6,23 @@ export const baseQuery = (url: string) =>
   fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/${url}`,
     credentials: "include",
+    prepareHeaders: async (headers) => {
+      if (typeof window === "undefined") {
+        const { cookies } = await import("next/headers");
+
+        const cookieStore = await cookies();
+        const cookieString = cookieStore
+          .getAll()
+          .map((c) => `${c.name}=${c.value}`)
+          .join("; ");
+
+        if (cookieString) {
+          headers.set("cookie", cookieString);
+        }
+      }
+
+      return headers;
+    },
   });
 
 export type ApiResponse<T> = {

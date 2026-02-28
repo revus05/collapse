@@ -2,7 +2,6 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import {
   type ApiResponse,
   baseQuery,
-  type ProductDTO,
   type SignInUserRequestDTO,
   type UpdateCurrencyRequestDTO,
   type UserDTO,
@@ -42,18 +41,6 @@ const userApi = createApi({
         body,
       }),
     }),
-    toggleInCart: builder.mutation<ApiResponse<ProductDTO>, string>({
-      query: (uuid) => ({
-        url: `/toggle-in-cart/${uuid}`,
-        method: "POST",
-      }),
-    }),
-    getCart: builder.query<ApiResponse<ProductDTO[]>, void>({
-      query: () => ({
-        url: `/get-cart`,
-        method: "GET",
-      }),
-    }),
   }),
 });
 
@@ -63,6 +50,4 @@ export const {
   useSignUpUserMutation,
   useSignOutUserMutation,
   useUpdateCurrencyMutation,
-  useToggleInCartMutation,
-  useGetCartQuery,
 } = userApi;

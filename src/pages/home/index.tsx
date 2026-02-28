@@ -1,38 +1,24 @@
-import Image from "next/image";
-import { ProductsList } from "widgets/home/products-list";
-import { SortDropdown } from "widgets/home/sort-dropdown";
+import { makeStore } from "app/store";
+import { productApi } from "entity/product";
+import { HomePage } from "pages/home/ui";
 import { withHomeLayout } from "widgets/layouts/home";
-import banner from "../../../public/images/banner.png";
 
-const HomePage = async () => {
-  return (
-    <main className="grow flex flex-col gap-4">
-      <div className="flex flex-col gap-4 relative">
-        <Image
-          src={banner.src}
-          width={1728}
-          height={864}
-          alt="home banner"
-          className="-z-1 select-none"
-        />
-        <div
-          className={
-            "absolute top-1/2 -translate-y-1/2 flex flex-col gap-2 px-32"
-          }
-        >
-          <h3 className="text-4xl font-bold">13-15 февраля</h3>
-          <span className="text-lg">Скидка 15% по промокоду</span>
-          <span className="text-4xl font-bold text-red-500">LOVE</span>
-        </div>
-      </div>
+const HomeServerPage = async () => {
+  const store = makeStore();
 
-      <div className="flex gap-4 items-center">
-        <SortDropdown />
-      </div>
+  store.dispatch(productApi.endpoints.getAllProducts.initiate());
 
-      <ProductsList />
-    </main>
-  );
+  await Promise.all(store.dispatch(productApi.util.getRunningQueriesThunk()));
+
+  const state = store.getState();
+
+  const response = productApi.endpoints.getAllProducts.select()(state)?.data;
+
+  const products = response?.data;
+
+  if (!products) return null;
+
+  return <HomePage products={products} />;
 };
 
-export default withHomeLayout(HomePage);
+export default withHomeLayout(HomeServerPage);

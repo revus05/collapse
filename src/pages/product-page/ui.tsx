@@ -1,6 +1,6 @@
 "use client";
 
-import { useToggleInCartMutation } from "entity/user";
+import { useAddToCartMutation } from "entity/cart";
 import Image from "next/image";
 import { type FC, useState } from "react";
 import type { ProductDTO } from "shared/api";
@@ -14,16 +14,16 @@ type ProductPageProps = {
 };
 
 export const ProductPage: FC<ProductPageProps> = ({ product }) => {
-  const [toggleInCart] = useToggleInCartMutation();
+  const [addToCart] = useAddToCartMutation();
   const currency =
     useAppSelector((state) => state.userSlice.user?.currency) || "BYN";
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedInsideColors, setSelectedInsideColors] = useState<Colors>(
+  const [selectedInsideColor, setSelectedInsideColor] = useState<Colors>(
     product.insideColors[0],
   );
 
-  const [selectedOutsideColors, setSelectedOutsideColors] = useState<Colors>(
+  const [selectedOutsideColor, setSelectedOutsideColor] = useState<Colors>(
     product.outsideColors[0],
   );
 
@@ -56,10 +56,10 @@ export const ProductPage: FC<ProductPageProps> = ({ product }) => {
                 key={color}
                 className={cn(
                   "size-8 rounded-full cursor-pointer",
-                  selectedOutsideColors === color && "border-2 border-accent",
+                  selectedOutsideColor === color && "border-2 border-accent",
                 )}
                 style={{ background: colorsHex[color] }}
-                onClick={() => setSelectedOutsideColors(color)}
+                onClick={() => setSelectedOutsideColor(color)}
               />
             ))}
           </div>
@@ -73,10 +73,10 @@ export const ProductPage: FC<ProductPageProps> = ({ product }) => {
                 key={color}
                 className={cn(
                   "size-8 rounded-full cursor-pointer",
-                  selectedInsideColors === color && "border-2 border-accent",
+                  selectedInsideColor === color && "border-2 border-accent",
                 )}
                 style={{ background: colorsHex[color] }}
-                onClick={() => setSelectedInsideColors(color)}
+                onClick={() => setSelectedInsideColor(color)}
               />
             ))}
           </div>
@@ -105,7 +105,14 @@ export const ProductPage: FC<ProductPageProps> = ({ product }) => {
         <Button
           className="w-fit"
           variant="glowing"
-          onClick={() => toggleInCart(product.uuid)}
+          onClick={() =>
+            addToCart({
+              productUuid: product.uuid,
+              quantity,
+              insideColor: selectedInsideColor,
+              outsideColor: selectedOutsideColor,
+            })
+          }
         >
           Заказать
         </Button>

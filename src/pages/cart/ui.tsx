@@ -1,19 +1,15 @@
-"use client";
+import { CreateOrderForm } from "features/oder/create/ui";
+import type { FC } from "react";
+import type { CartItemDTO } from "shared/api";
 
-import { useGetCartQuery } from "entity/user";
+type CartPageProps = {
+  cartItems: CartItemDTO[];
+};
 
-export const CartPage = () => {
-  const { data: response } = useGetCartQuery();
-
-  if (!response) return null;
-
-  const { data: product } = response;
-
+export const CartPage: FC<CartPageProps> = ({ cartItems }) => {
   return (
-    <div>
-      {product.map((product) => (
-        <span key={product.uuid}>{product.title}</span>
-      ))}
+    <div className="grid grid-cols-[2fr_1fr] gap-8 w-full">
+      <CreateOrderForm cartItems={cartItems} />
     </div>
   );
 };

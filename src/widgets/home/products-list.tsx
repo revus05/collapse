@@ -1,18 +1,18 @@
 "use client";
 
-import { useGetAllProductsQuery } from "entity/product";
 import Image from "next/image";
 import Link from "next/link";
+import type { FC } from "react";
+import type { ProductDTO } from "shared/api";
 import { useAppSelector } from "shared/lib/hooks";
 import { paths } from "shared/navigation/paths";
 
-export const ProductsList = () => {
+type ProductsListProps = {
+  products: ProductDTO[];
+};
+
+export const ProductsList: FC<ProductsListProps> = ({ products }) => {
   const user = useAppSelector((state) => state.userSlice.user);
-  const { data: response } = useGetAllProductsQuery();
-
-  if (!response) return null;
-
-  const { data: products } = response;
 
   return (
     <section className="grid grid-cols-3 gap-6">
