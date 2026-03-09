@@ -9,6 +9,9 @@ export const AdminAside = () => {
           <li>
             <Link href={paths.adminProducts}>Продукты</Link>
           </li>
+          <li>
+            <Link href={paths.adminUsers}>Пользователи</Link>
+          </li>
         </ul>
       </nav>
     </aside>

@@ -16,6 +16,7 @@ import logo from "../../../../public/images/logo.png";
 export const Header = () => {
   const isAuth = !!useAppSelector((state) => state.userSlice.user);
   const firstName = useAppSelector((state) => state.userSlice.user?.firstName);
+  const userImage = useAppSelector((state) => state.userSlice.user?.image);
   const userRole = useAppSelector((state) => state.userSlice.user?.role);
 
   const [tab, setTab] = useState<
@@ -42,7 +43,17 @@ export const Header = () => {
             <PopoverTrigger asChild>
               <div className="flex gap-4 items-center cursor-pointer">
                 <span>{firstName}</span>
-                <div className="size-8 bg-gray-400 rounded-full shrink-0" />
+                {userImage ? (
+                  <Image
+                    src={userImage}
+                    alt={firstName || "user avatar"}
+                    width={32}
+                    height={32}
+                    className="size-8 rounded-full shrink-0 object-cover"
+                  />
+                ) : (
+                  <div className="size-8 bg-gray-400 rounded-full shrink-0" />
+                )}
               </div>
             </PopoverTrigger>
             <PopoverContent className="w-fit p-0 gap-0" align="end">

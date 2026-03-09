@@ -6,3 +6,9 @@ export {
   useGetProductByIdQuery,
   useUpdateProductMutation,
 } from "./api";
+export {
+  getCatalogProductByUuid,
+  getCatalogProducts,
+  searchCatalogProducts,
+  testProducts,
+} from "./lib/catalog";

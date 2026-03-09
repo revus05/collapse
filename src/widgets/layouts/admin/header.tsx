@@ -10,6 +10,7 @@ import logo from "../../../../public/images/logo.png";
 
 export const Header = () => {
   const firstName = useAppSelector((state) => state.userSlice.user?.firstName);
+  const userImage = useAppSelector((state) => state.userSlice.user?.image);
 
   return (
     <header className="border-b fixed bg-background/80 backdrop-blur-2xl w-full z-50">
@@ -28,7 +29,17 @@ export const Header = () => {
           <PopoverTrigger asChild>
             <div className="flex gap-4 items-center cursor-pointer">
               <span>{firstName}</span>
-              <div className="size-8 bg-gray-400 rounded-full shrink-0" />
+              {userImage ? (
+                <Image
+                  src={userImage}
+                  alt={firstName || "user avatar"}
+                  width={32}
+                  height={32}
+                  className="size-8 rounded-full shrink-0 object-cover"
+                />
+              ) : (
+                <div className="size-8 bg-gray-400 rounded-full shrink-0" />
+              )}
             </div>
           </PopoverTrigger>
           <PopoverContent

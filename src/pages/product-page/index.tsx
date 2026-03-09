@@ -1,5 +1,5 @@
 import { makeStore } from "app/store";
-import productApi from "entity/product/api";
+import { getCatalogProductByUuid, productApi } from "entity/product";
 import { ProductPage } from "pages/product-page/ui";
 import type { FC } from "react";
 import { withHomeLayout } from "widgets/layouts/home";
@@ -22,7 +22,7 @@ const ProductServerPage: FC<ProductPageProps> = async ({ params }) => {
   const response =
     productApi.endpoints.getProductById.select(uuid)(state)?.data;
 
-  const product = response?.data;
+  const product = response?.data || getCatalogProductByUuid(uuid);
 
   if (!product) return null;
 

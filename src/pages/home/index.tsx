@@ -1,5 +1,5 @@
 import { makeStore } from "app/store";
-import { productApi } from "entity/product";
+import { getCatalogProducts, productApi } from "entity/product";
 import { HomePage } from "pages/home/ui";
 import { withHomeLayout } from "widgets/layouts/home";
 
@@ -13,10 +13,7 @@ const HomeServerPage = async () => {
   const state = store.getState();
 
   const response = productApi.endpoints.getAllProducts.select()(state)?.data;
-
-  const products = response?.data;
-
-  if (!products) return null;
+  const products = getCatalogProducts(response?.data);
 
   return <HomePage products={products} />;
 };
