@@ -15,7 +15,7 @@ export const ProductsList: FC<ProductsListProps> = ({ products }) => {
   const user = useAppSelector((state) => state.userSlice.user);
 
   return (
-    <section className="grid grid-cols-3 gap-6">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {products.map((product) => (
         <Link href={`${paths.product}/${product.uuid}`} key={product.uuid}>
           <Image
@@ -23,7 +23,7 @@ export const ProductsList: FC<ProductsListProps> = ({ products }) => {
             alt={product.title}
             width={400}
             height={400}
-            className="w-full h-128 object-cover rounded-t"
+            className="w-full h-64 sm:h-96 lg:h-128 object-cover rounded-t"
           />
           <div className="p-4 space-y-2">
             <h3 className="text-xl font-semibold">{product.title}</h3>

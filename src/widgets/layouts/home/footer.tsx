@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <footer className="border-y ">
       <div className="2xl:w-360 2xl:px-0 px-2 mx-auto py-8">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div className="flex flex-col gap-4">
             <Image
               src={logo.src}

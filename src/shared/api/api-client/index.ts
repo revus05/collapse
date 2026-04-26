@@ -9,12 +9,15 @@ export type { AdminUpdateUserRequestDTO } from './models/AdminUpdateUserRequestD
 export type { CartItemDTO } from './models/CartItemDTO';
 export type { CreateOrderRequestDTO } from './models/CreateOrderRequestDTO';
 export type { OrderDTO } from './models/OrderDTO';
+export type { OrderStatus } from './models/OrderStatus';
 export type { ProductDTO } from './models/ProductDTO';
 export type { ProductRequestDTO } from './models/ProductRequestDTO';
 export type { SignInUserRequestDTO } from './models/SignInUserRequestDTO';
 export type { SignUpUserRequestDTO } from './models/SignUpUserRequestDTO';
+export type { UpdateCartItemRequestDTO } from './models/UpdateCartItemRequestDTO';
 export type { UpdateCurrencyRequestDTO } from './models/UpdateCurrencyRequestDTO';
 export type { UpdateMeRequestDTO } from './models/UpdateMeRequestDTO';
+export type { UpdateOrderStatusRequestDTO } from './models/UpdateOrderStatusRequestDTO';
 export type { UploadFileRequestDTO } from './models/UploadFileRequestDTO';
 export type { UploadFileResponseDTO } from './models/UploadFileResponseDTO';
 export type { UserDTO } from './models/UserDTO';

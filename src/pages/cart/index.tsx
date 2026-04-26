@@ -8,19 +8,13 @@ const CartServerPage = async () => {
 
   store.dispatch(cartApi.endpoints.getCart.initiate());
 
-  const res = await Promise.all(
-    store.dispatch(cartApi.util.getRunningQueriesThunk()),
-  );
-
-  console.log(res);
+  await Promise.all(store.dispatch(cartApi.util.getRunningQueriesThunk()));
 
   const state = store.getState();
 
   const response = cartApi.endpoints.getCart.select()(state)?.data;
 
-  const cartItems = response?.data;
-
-  if (!cartItems) return null;
+  const cartItems = response?.data ?? [];
 
   return <CartPage cartItems={cartItems} />;
 };

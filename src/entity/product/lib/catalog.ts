@@ -58,19 +58,8 @@ export const testProducts: ProductDTO[] = [
 ];
 
 export const getCatalogProducts = (products: ProductDTO[] = []) => {
-  const uniqueProducts = new Map<string, ProductDTO>();
-
-  for (const product of products) {
-    uniqueProducts.set(product.uuid, product);
-  }
-
-  for (const product of testProducts) {
-    if (!uniqueProducts.has(product.uuid)) {
-      uniqueProducts.set(product.uuid, product);
-    }
-  }
-
-  return Array.from(uniqueProducts.values());
+  if (products.length > 0) return products;
+  return testProducts;
 };
 
 export const getCatalogProductByUuid = (

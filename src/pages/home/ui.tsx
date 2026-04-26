@@ -22,12 +22,12 @@ export const HomePage: FC<HomePageProps> = async ({ products }) => {
         />
         <div
           className={
-            "absolute top-1/2 -translate-y-1/2 flex flex-col gap-2 px-32"
+            "absolute top-1/2 -translate-y-1/2 flex flex-col gap-2 px-4 sm:px-16 lg:px-32"
           }
         >
-          <h3 className="text-4xl font-bold">13-15 февраля</h3>
-          <span className="text-lg">Скидка 15% по промокоду</span>
-          <span className="text-4xl font-bold text-red-500">LOVE</span>
+          <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold">13-15 февраля</h3>
+          <span className="text-sm sm:text-base lg:text-lg">Скидка 15% по промокоду</span>
+          <span className="text-xl sm:text-3xl lg:text-4xl font-bold text-red-500">LOVE</span>
         </div>
       </div>
 

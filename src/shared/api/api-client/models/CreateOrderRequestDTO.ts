@@ -7,5 +7,16 @@ export type CreateOrderRequestDTO = {
      * Cart items list
      */
     orderItemsUuids: Array<string>;
+    /**
+     * Delivery phone
+     */
+    phone: string;
+    /**
+     * Delivery address
+     */
+    address: string;
+    /**
+     * Order comment
+     */
+    comment?: string;
 };
-

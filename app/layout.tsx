@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "app/providers";
 import { preloadState } from "entity/user";
 import type { ReactNode } from "react";
+import { Toaster } from "sonner";
 
 const notoSans = Noto_Sans({ variable: "--font-sans" });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
     <html lang="en" className={notoSans.variable}>
       <body className={`antialiased flex flex-col min-h-screen gap-8`}>
         <Providers preloadedState={preloadedState}>{children}</Providers>
+        <Toaster theme="dark" position="top-right" richColors />
       </body>
     </html>
   );

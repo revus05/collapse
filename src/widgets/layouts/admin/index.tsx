@@ -26,7 +26,7 @@ const AdminLayout: FC<AdminLayoutType> = async ({ children }) => {
       <div className={"h-12.25 relative"}>
         <Header />
       </div>
-      <div className={"2xl:w-360 w-full 2xl:px-0 px-2 mx-auto flex gap-8 grow"}>
+      <div className={"2xl:w-360 w-full 2xl:px-0 px-2 mx-auto flex flex-col lg:flex-row gap-8 grow"}>
         <AdminAside />
         {children}
       </div>

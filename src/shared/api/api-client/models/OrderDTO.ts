@@ -3,11 +3,17 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CartItemDTO } from './CartItemDTO';
+import type { OrderStatus } from './OrderStatus';
+import type { UserDTO } from './UserDTO';
 export type OrderDTO = {
     /**
      * Order uuid
      */
     uuid: string;
+    /**
+     * Customer
+     */
+    user: UserDTO;
     /**
      * Cart items list
      */
@@ -21,6 +27,22 @@ export type OrderDTO = {
      */
     currency: 'BYN' | 'RUB';
     /**
+     * Order status
+     */
+    status: OrderStatus;
+    /**
+     * Delivery phone
+     */
+    phone: string;
+    /**
+     * Delivery address
+     */
+    address: string;
+    /**
+     * Order comment
+     */
+    comment?: string | null;
+    /**
      * Creation timestamp
      */
     createdAt: string;
@@ -29,4 +51,3 @@ export type OrderDTO = {
      */
     updatedAt: string;
 };
-

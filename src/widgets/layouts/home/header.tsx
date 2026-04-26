@@ -25,7 +25,7 @@ export const Header = () => {
 
   return (
     <header className="border-b fixed bg-background/80 backdrop-blur-2xl w-full z-50">
-      <div className="2xl:w-360 w-full 2xl:px-0 px-2 mx-auto flex justify-between items-center py-2 gap-32">
+      <div className="2xl:w-360 w-full 2xl:px-0 px-2 mx-auto flex justify-between items-center py-2 gap-4 lg:gap-32">
         <Link href={paths.home} className="shrink-0">
           <Image
             src={logo.src}
@@ -41,8 +41,8 @@ export const Header = () => {
         {isAuth ? (
           <Popover>
             <PopoverTrigger asChild>
-              <div className="flex gap-4 items-center cursor-pointer">
-                <span>{firstName}</span>
+              <div className="flex gap-2 lg:gap-4 items-center cursor-pointer shrink-0">
+                <span className="hidden sm:block">{firstName}</span>
                 {userImage ? (
                   <Image
                     src={userImage}
@@ -83,20 +83,22 @@ export const Header = () => {
           </Link>
         )}
       </div>
-      <div className="2xl:w-360 w-full 2xl:px-0 px-2 mx-auto flex justify-between items-center py-2">
-        <Tabs
-          tab={tab}
-          tabs={[
-            { label: "Сумки", value: "bags" },
-            { label: "Скидки", value: "sales" },
-            { label: "Новинки", value: "new" },
-            { label: "Лимитированные", value: "limited" },
-            { label: "Одежда", value: "cloths" },
-            { label: "Аксессуары", value: "accessories" },
-          ]}
-          setTab={setTab}
-        />
-        <div className="flex gap-4 items-center">
+      <div className="2xl:w-360 w-full 2xl:px-0 px-2 mx-auto flex justify-between items-center py-2 gap-4 overflow-x-auto">
+        <div className="overflow-x-auto flex-1 min-w-0">
+          <Tabs
+            tab={tab}
+            tabs={[
+              { label: "Сумки", value: "bags" },
+              { label: "Скидки", value: "sales" },
+              { label: "Новинки", value: "new" },
+              { label: "Лимитированные", value: "limited" },
+              { label: "Одежда", value: "cloths" },
+              { label: "Аксессуары", value: "accessories" },
+            ]}
+            setTab={setTab}
+          />
+        </div>
+        <div className="flex gap-4 items-center shrink-0">
           <UpdateCurrencySelect />
           <Link href={paths.cart}>
             <ShoppingCart />
